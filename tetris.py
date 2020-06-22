@@ -126,20 +126,27 @@ for frame in itertools.count():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 x_shape -= 1
+                check_coor()
+                if display_shape()[1]:
+                    x_shape += 1
             if event.key == pygame.K_RIGHT:
                 x_shape += 1
+                check_coor()
+                if display_shape()[1]:
+                    x_shape -= 1
             if event.key == pygame.K_DOWN:
+                check_landed()
                 y_shape += 1
             if event.key == pygame.K_UP:
                 orientation += 1
                 orientation %= 4
     check_coor()
-    check_landed()
     copy = display_shape()[0]
     delete_line()
     draw_board(copy)
     screen.blit(text, (10,5))
     if frame % 10 == 0:
+        check_landed()
         y_shape += 1
     pygame.display.flip()
     time.sleep(0.05)
